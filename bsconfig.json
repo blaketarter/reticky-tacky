@@ -1,6 +1,8 @@
 {
   "name": "tic-tac-toe",
-  "sources": "src",
+  "sources": {
+    "dir": "src"
+  },
   "bs-dependencies": ["Reprocessing"],
   "entries": [{
     "backend": "bytecode",
@@ -12,5 +14,5 @@
     "backend": "js",
     "main-module": "Index"
   }],
-  "refmt": 3,
+  "refmt": 3
 }
