@@ -1,0 +1,16 @@
+{
+  "name": "tic-tac-toe",
+  "sources": "src",
+  "bs-dependencies": ["Reprocessing"],
+  "entries": [{
+    "backend": "bytecode",
+    "main-module": "IndexHot"
+  },{
+    "backend": "native",
+    "main-module": "Index"
+  },{
+    "backend": "js",
+    "main-module": "Index"
+  }],
+  "refmt": 3,
+}
