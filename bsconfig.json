@@ -1,7 +1,8 @@
 {
   "name": "tic-tac-toe",
   "sources": {
-    "dir": "src"
+    "dir": "src",
+    "subdirs": true
   },
   "bs-dependencies": ["Reprocessing"],
   "entries": [{
