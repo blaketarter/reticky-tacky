@@ -2,11 +2,7 @@ open Reprocessing;
 
 let initialState: State.t = {
   view: Title,
-  box: {
-    color: Theme.blue,
-    size: 300,
-    pos: (150, 150),
-  },
+  board: Board((O, X, O), (X, O, Empty), (O, X, Empty)),
 };
 
 let setup = env => {
@@ -14,13 +10,11 @@ let setup = env => {
   initialState;
 };
 
-let drawView = (state: State.t, env) =>
+let draw = (state: State.t, env) =>
   switch (state.view) {
   | Title => Title.draw(state, env)
   | Game => Game.draw(state, env)
   };
-
-let draw = (state: State.t, env) => drawView(state, env);
 
 let mouseUp = (state: State.t, env) =>
   switch (state.view) {

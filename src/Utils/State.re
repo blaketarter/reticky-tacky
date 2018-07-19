@@ -1,4 +1,4 @@
 type t = {
   view: Views.t,
-  box: Box.t,
+  board: Board.t,
 };
