@@ -1,5 +1,3 @@
-open Reprocessing;
-
 type token =
   | Empty
   | X
@@ -63,7 +61,13 @@ let drawToken = (~yPos: int, ~xPos: int, t: token, env) => {
   switch (t) {
   | Empty => ()
   | X =>
-    Box.draw(~color=Box.Blue, ~xPos=x, ~yPos=y, ~size=Options.tokenSize, env)
+    Circle.draw(
+      ~color=Circle.Blue,
+      ~xPos=x + Options.tokenInset,
+      ~yPos=y + Options.tokenInset,
+      ~size=Options.tokenSize,
+      env,
+    )
   | O =>
     Box.draw(
       ~color=Box.Orange,

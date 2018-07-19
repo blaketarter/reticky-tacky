@@ -7,6 +7,8 @@ let initialState: State.t = {
 
 let setup = env => {
   Env.size(~width=Options.windowSize, ~height=Options.windowSize, env);
+  Draw.rectMode(Options.rectMode, env);
+  /* Draw.tint(Options.fontColor, env); */
   initialState;
 };
 

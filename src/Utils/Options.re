@@ -5,3 +5,7 @@ let spacing = 25;
 let cellSize = (windowSize - spacing) / 3 - spacing;
 let tokenSize = cellSize / 2;
 let tokenInset = cellSize / 2 - tokenSize / 2;
+
+let rectMode = Reprocessing_Common.Corner;
+
+let fontColor = Reprocessing.Constants.white;
