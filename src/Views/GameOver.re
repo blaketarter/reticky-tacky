@@ -3,13 +3,13 @@ open Reprocessing;
 let draw = (state: State.t, env) => {
   Draw.background(Theme.white, env);
   Helpers.centerText(
-    ~body="Ticky-Tacky",
+    ~body="Game Over!",
     ~pos=(Options.windowSize / 2, Options.windowSize / 2 - 100),
     ~font=None,
     env,
   );
   Helpers.centerText(
-    ~body="click to start",
+    ~body="click to restart",
     ~pos=(Options.windowSize / 2, Options.windowSize / 2),
     ~font=None,
     env,
@@ -17,4 +17,8 @@ let draw = (state: State.t, env) => {
   state;
 };
 
-let handleMouseUp = (state: State.t, _env) => {...state, view: Game};
+let handleMouseUp = (state: State.t, _env) => {
+  ...state,
+  view: Game,
+  board: Board.empty,
+};

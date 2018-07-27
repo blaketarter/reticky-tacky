@@ -1,3 +1,4 @@
 type t =
   | Title
-  | Game;
+  | Game
+  | GameOver(Player.t);
