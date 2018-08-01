@@ -37,14 +37,15 @@ let handleMouseUp = (state: State.t, env) : State.t => {
         && Helpers.isCoordInBounds(~lower=lowerY, ~upper=upperY, my)) {
       let coord = Coord.coord_of_xy(~x, ~y);
 
+      let token =
+        switch (state.player) {
+        | Player.Circle => Board.Circle
+        | Player.Box => Board.Box
+        };
+
       if (! Board.isTokenAtCoord(~coord, ~board=state.board)) {
-        let player =
-          switch (state.player) {
-          | `Circle => `Circle
-          | `Box => `Box
-          };
         nextBoard :=
-          Board.insertTokenAtCoord(~coord, ~board=state.board, player);
+          Board.insertTokenAtCoord(~coord, ~board=state.board, token);
 
         if (Board.isBoardWon(nextBoard^)) {
           nextView := Views.GameWon(state.player);
@@ -54,8 +55,8 @@ let handleMouseUp = (state: State.t, env) : State.t => {
           nextPlayer :=
             (
               switch (state.player) {
-              | `Circle => `Box
-              | `Box => `Circle
+              | Player.Circle => Player.Box
+              | Player.Box => Player.Circle
               }
             );
         };

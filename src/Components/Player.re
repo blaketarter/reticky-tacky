@@ -1,17 +1,19 @@
 open Reprocessing;
 
-type t = [ | `Circle | `Box];
+type t =
+  | Circle
+  | Box;
 
 let color_of_player = (player: t) =>
   switch (player) {
-  | `Box => Theme.orange
-  | `Circle => Theme.blue
+  | Box => Theme.orange
+  | Circle => Theme.blue
   };
 
 let text_of_player = (player: t) : string =>
   switch (player) {
-  | `Box => "Box"
-  | `Circle => "Circle"
+  | Box => "Box"
+  | Circle => "Circle"
   };
 
 let playerDrawOffset = 0;
