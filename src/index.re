@@ -13,14 +13,16 @@ let draw = (state: State.t, env) =>
   switch (state.view) {
   | Title => Title.draw(state, env)
   | Game => Game.draw(state, env)
-  | GameOver(_) => GameOver.draw(state, env)
+  | GameOver => GameOver.draw(state, env)
+  | GameWon(_) => GameWon.draw(state, env)
   };
 
 let mouseUp = (state: State.t, env) =>
   switch (state.view) {
   | Title => Title.handleMouseUp(state, env)
   | Game => Game.handleMouseUp(state, env)
-  | GameOver(_) => GameOver.handleMouseUp(state, env)
+  | GameOver => GameOver.handleMouseUp(state, env)
+  | GameWon(_) => GameWon.handleMouseUp(state, env)
   };
 
 run(~mouseUp, ~setup, ~draw, ());

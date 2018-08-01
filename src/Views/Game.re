@@ -47,17 +47,19 @@ let handleMouseUp = (state: State.t, env) : State.t => {
         nextBoard :=
           Board.insertTokenAtCoord(~coord, ~board=state.board, token);
 
-        nextPlayer :=
-          (
-            switch (state.player) {
-            | Player.Circle => Player.Box
-            | Player.Box => Player.Circle
-            }
-          );
-      };
-
-      if (Board.isBoardWon(nextBoard^) || Board.isBoardFull(nextBoard^)) {
-        nextView := Views.GameOver(state.player);
+        if (Board.isBoardWon(nextBoard^)) {
+          nextView := Views.GameWon(state.player);
+        } else if (Board.isBoardFull(nextBoard^)) {
+          nextView := Views.GameOver;
+        } else {
+          nextPlayer :=
+            (
+              switch (state.player) {
+              | Player.Circle => Player.Box
+              | Player.Box => Player.Circle
+              }
+            );
+        };
       };
     };
   });

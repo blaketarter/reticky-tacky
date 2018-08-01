@@ -10,6 +10,12 @@ let color_of_player = (player: t) =>
   | Circle => Theme.blue
   };
 
+let text_of_player = (player: t) : string =>
+  switch (player) {
+  | Box => "Box"
+  | Circle => "Circle"
+  };
+
 let playerDrawOffset = 0;
 let playerStrokeWeight = 5;
 let playerOffset = playerDrawOffset + playerStrokeWeight / 2;

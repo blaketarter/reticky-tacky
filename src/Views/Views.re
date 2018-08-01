@@ -1,4 +1,5 @@
 type t =
   | Title
   | Game
-  | GameOver(Player.t);
+  | GameWon(Player.t)
+  | GameOver;

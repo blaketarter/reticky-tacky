@@ -1,7 +1,7 @@
 open Reprocessing;
 
 let draw = (state: State.t, env) => {
-  Draw.background(Theme.white, env);
+  Draw.background(Theme.grey, env);
   Helpers.centerText(
     ~body="Ticky-Tacky",
     ~pos=(Options.windowSize / 2, Options.windowSize / 2 - 100),
