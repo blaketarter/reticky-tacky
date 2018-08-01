@@ -1,7 +1,5 @@
-type token =
-  | Empty
-  | Circle
-  | Box;
+type filledToken = [ | `Circle | `Box];
+type token = [ | `Empty | filledToken];
 
 type row = (token, token, token);
 
@@ -10,9 +8,9 @@ type t =
 
 let empty =
   Board(
-    (Empty, Empty, Empty),
-    (Empty, Empty, Empty),
-    (Empty, Empty, Empty),
+    (`Empty, `Empty, `Empty),
+    (`Empty, `Empty, `Empty),
+    (`Empty, `Empty, `Empty),
   );
 
 let getNthRow = (n: int, b: t) : row =>
@@ -28,36 +26,36 @@ let getNthItem = (n: int, r: row) : token =>
   | (0, (m, _, _)) => m
   | (1, (_, m, _)) => m
   | (2, (_, m, _)) => m
-  | (_, (_, _, _)) => Empty
+  | (_, (_, _, _)) => `Empty
   };
 
 let isBoardWon = (b: t) : bool =>
   switch (b) {
-  | Board((Circle, Circle, Circle), (_, _, _), (_, _, _))
-  | Board((Box, Box, Box), (_, _, _), (_, _, _))
-  | Board((_, _, _), (Circle, Circle, Circle), (_, _, _))
-  | Board((_, _, _), (Box, Box, Box), (_, _, _))
-  | Board((_, _, _), (_, _, _), (Circle, Circle, Circle))
-  | Board((_, _, _), (_, _, _), (Box, Box, Box))
-  | Board((Circle, _, _), (Circle, _, _), (Circle, _, _))
-  | Board((Box, _, _), (Box, _, _), (Box, _, _))
-  | Board((_, Circle, _), (_, Circle, _), (_, Circle, _))
-  | Board((_, Box, _), (_, Box, _), (_, Box, _))
-  | Board((_, _, Circle), (_, _, Circle), (_, _, Circle))
-  | Board((_, _, Box), (_, _, Box), (_, _, Box))
-  | Board((Circle, _, _), (_, Circle, _), (_, _, Circle))
-  | Board((Box, _, _), (_, Box, _), (_, _, Box))
-  | Board((_, _, Circle), (_, Circle, _), (Circle, _, _))
-  | Board((_, _, Box), (_, Box, _), (Box, _, _)) => true
+  | Board((`Circle, `Circle, `Circle), (_, _, _), (_, _, _))
+  | Board((`Box, `Box, `Box), (_, _, _), (_, _, _))
+  | Board((_, _, _), (`Circle, `Circle, `Circle), (_, _, _))
+  | Board((_, _, _), (`Box, `Box, `Box), (_, _, _))
+  | Board((_, _, _), (_, _, _), (`Circle, `Circle, `Circle))
+  | Board((_, _, _), (_, _, _), (`Box, `Box, `Box))
+  | Board((`Circle, _, _), (`Circle, _, _), (`Circle, _, _))
+  | Board((`Box, _, _), (`Box, _, _), (`Box, _, _))
+  | Board((_, `Circle, _), (_, `Circle, _), (_, `Circle, _))
+  | Board((_, `Box, _), (_, `Box, _), (_, `Box, _))
+  | Board((_, _, `Circle), (_, _, `Circle), (_, _, `Circle))
+  | Board((_, _, `Box), (_, _, `Box), (_, _, `Box))
+  | Board((`Circle, _, _), (_, `Circle, _), (_, _, `Circle))
+  | Board((`Box, _, _), (_, `Box, _), (_, _, `Box))
+  | Board((_, _, `Circle), (_, `Circle, _), (`Circle, _, _))
+  | Board((_, _, `Box), (_, `Box, _), (`Box, _, _)) => true
   | Board((_, _, _), (_, _, _), (_, _, _)) => false
   };
 
 let isBoardFull = (b: t) : bool =>
   switch (b) {
   | Board(
-      (Circle | Box, Circle | Box, Circle | Box),
-      (Circle | Box, Circle | Box, Circle | Box),
-      (Circle | Box, Circle | Box, Circle | Box),
+      (`Circle | `Box, `Circle | `Box, `Circle | `Box),
+      (`Circle | `Box, `Circle | `Box, `Circle | `Box),
+      (`Circle | `Box, `Circle | `Box, `Circle | `Box),
     ) =>
     true
   | Board((_, _, _), (_, _, _), (_, _, _)) => false
@@ -77,8 +75,8 @@ let getTokenCoords = (~yPos: int, ~xPos: int) => (
 let drawToken = (~yPos: int, ~xPos: int, t: token, env) => {
   let (x, y) = getTokenCoords(~xPos, ~yPos);
   switch (t) {
-  | Empty => ()
-  | Circle =>
+  | `Empty => ()
+  | `Circle =>
     Circle.draw(
       ~color=Circle.Blue,
       ~xPos=x,
@@ -86,7 +84,7 @@ let drawToken = (~yPos: int, ~xPos: int, t: token, env) => {
       ~size=Options.tokenSize,
       env,
     )
-  | Box =>
+  | `Box =>
     Box.draw(
       ~color=Box.Orange,
       ~xPos=x,
@@ -126,12 +124,12 @@ let insertTokenAtCoord = (~coord: Coord.t, ~board: t, token: token) : t =>
 
 let isTokenAtColumn = (~column: Coord.c, ~row: row) : bool =>
   switch (column, row) {
-  | (C1, (Circle | Box, _, _))
-  | (C2, (_, Circle | Box, _))
-  | (C3, (_, _, Circle | Box)) => true
-  | (C1, (Empty, _, _))
-  | (C2, (_, Empty, _))
-  | (C3, (_, _, Empty))
+  | (C1, (`Circle | `Box, _, _))
+  | (C2, (_, `Circle | `Box, _))
+  | (C3, (_, _, `Circle | `Box)) => true
+  | (C1, (`Empty, _, _))
+  | (C2, (_, `Empty, _))
+  | (C3, (_, _, `Empty))
   | (None, _) => false
   };
 

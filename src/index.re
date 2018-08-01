@@ -1,6 +1,10 @@
 open Reprocessing;
 
-let initialState: State.t = {player: Circle, view: Title, board: Board.empty};
+let initialState: State.t = {
+  player: `Circle,
+  view: Title,
+  board: Board.empty,
+};
 
 let setup = env => {
   Env.size(~width=Options.windowSize, ~height=Options.windowSize, env);
