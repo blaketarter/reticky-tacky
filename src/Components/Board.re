@@ -1,7 +1,7 @@
 type token =
   | Empty
-  | X
-  | O;
+  | Circle
+  | Box;
 
 type row = (token, token, token);
 
@@ -33,31 +33,31 @@ let getNthItem = (n: int, r: row) : token =>
 
 let isBoardWon = (b: t) : bool =>
   switch (b) {
-  | Board((X, X, X), (_, _, _), (_, _, _))
-  | Board((O, O, O), (_, _, _), (_, _, _))
-  | Board((_, _, _), (X, X, X), (_, _, _))
-  | Board((_, _, _), (O, O, O), (_, _, _))
-  | Board((_, _, _), (_, _, _), (X, X, X))
-  | Board((_, _, _), (_, _, _), (O, O, O))
-  | Board((X, _, _), (X, _, _), (X, _, _))
-  | Board((O, _, _), (O, _, _), (O, _, _))
-  | Board((_, X, _), (_, X, _), (_, X, _))
-  | Board((_, O, _), (_, O, _), (_, O, _))
-  | Board((_, _, X), (_, _, X), (_, _, X))
-  | Board((_, _, O), (_, _, O), (_, _, O))
-  | Board((X, _, _), (_, X, _), (_, _, X))
-  | Board((O, _, _), (_, O, _), (_, _, O))
-  | Board((_, _, X), (_, X, _), (X, _, _))
-  | Board((_, _, O), (_, O, _), (O, _, _)) => true
+  | Board((Circle, Circle, Circle), (_, _, _), (_, _, _))
+  | Board((Box, Box, Box), (_, _, _), (_, _, _))
+  | Board((_, _, _), (Circle, Circle, Circle), (_, _, _))
+  | Board((_, _, _), (Box, Box, Box), (_, _, _))
+  | Board((_, _, _), (_, _, _), (Circle, Circle, Circle))
+  | Board((_, _, _), (_, _, _), (Box, Box, Box))
+  | Board((Circle, _, _), (Circle, _, _), (Circle, _, _))
+  | Board((Box, _, _), (Box, _, _), (Box, _, _))
+  | Board((_, Circle, _), (_, Circle, _), (_, Circle, _))
+  | Board((_, Box, _), (_, Box, _), (_, Box, _))
+  | Board((_, _, Circle), (_, _, Circle), (_, _, Circle))
+  | Board((_, _, Box), (_, _, Box), (_, _, Box))
+  | Board((Circle, _, _), (_, Circle, _), (_, _, Circle))
+  | Board((Box, _, _), (_, Box, _), (_, _, Box))
+  | Board((_, _, Circle), (_, Circle, _), (Circle, _, _))
+  | Board((_, _, Box), (_, Box, _), (Box, _, _)) => true
   | Board((_, _, _), (_, _, _), (_, _, _)) => false
   };
 
 let isBoardFull = (b: t) : bool =>
   switch (b) {
   | Board(
-      (X | O, X | O, X | O),
-      (X | O, X | O, X | O),
-      (X | O, X | O, X | O),
+      (Circle | Box, Circle | Box, Circle | Box),
+      (Circle | Box, Circle | Box, Circle | Box),
+      (Circle | Box, Circle | Box, Circle | Box),
     ) =>
     true
   | Board((_, _, _), (_, _, _), (_, _, _)) => false
@@ -78,7 +78,7 @@ let drawToken = (~yPos: int, ~xPos: int, t: token, env) => {
   let (x, y) = getTokenCoords(~xPos, ~yPos);
   switch (t) {
   | Empty => ()
-  | X =>
+  | Circle =>
     Circle.draw(
       ~color=Circle.Blue,
       ~xPos=x,
@@ -86,7 +86,7 @@ let drawToken = (~yPos: int, ~xPos: int, t: token, env) => {
       ~size=Options.tokenSize,
       env,
     )
-  | O =>
+  | Box =>
     Box.draw(
       ~color=Box.Orange,
       ~xPos=x,
@@ -126,9 +126,9 @@ let insertTokenAtCoord = (~coord: Coord.t, ~board: t, token: token) : t =>
 
 let isTokenAtColumn = (~column: Coord.c, ~row: row) : bool =>
   switch (column, row) {
-  | (C1, (X | O, _, _))
-  | (C2, (_, X | O, _))
-  | (C3, (_, _, X | O)) => true
+  | (C1, (Circle | Box, _, _))
+  | (C2, (_, Circle | Box, _))
+  | (C3, (_, _, Circle | Box)) => true
   | (C1, (Empty, _, _))
   | (C2, (_, Empty, _))
   | (C3, (_, _, Empty))
@@ -137,8 +137,8 @@ let isTokenAtColumn = (~column: Coord.c, ~row: row) : bool =>
 
 let isTokenAtCoord = (~coord: Coord.t, ~board: t) : bool =>
   switch (coord, board) {
-  | ((c, R1), Board(r, _, _)) => isTokenAtColumn(~column=c, ~row=r)
-  | ((c, R2), Board(_, r, _)) => isTokenAtColumn(~column=c, ~row=r)
+  | ((c, R1), Board(r, _, _))
+  | ((c, R2), Board(_, r, _))
   | ((c, R3), Board(_, _, r)) => isTokenAtColumn(~column=c, ~row=r)
   | ((_, None), _) => false
   };

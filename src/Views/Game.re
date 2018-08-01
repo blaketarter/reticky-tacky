@@ -39,8 +39,8 @@ let handleMouseUp = (state: State.t, env) : State.t => {
 
       let token =
         switch (state.player) {
-        | Player.X => Board.X
-        | Player.O => Board.O
+        | Player.Circle => Board.Circle
+        | Player.Box => Board.Box
         };
 
       if (! Board.isTokenAtCoord(~coord, ~board=state.board)) {
@@ -50,8 +50,8 @@ let handleMouseUp = (state: State.t, env) : State.t => {
         nextPlayer :=
           (
             switch (state.player) {
-            | Player.X => Player.O
-            | Player.O => Player.X
+            | Player.Circle => Player.Box
+            | Player.Box => Player.Circle
             }
           );
       };

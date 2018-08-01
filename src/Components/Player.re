@@ -1,18 +1,18 @@
 open Reprocessing;
 
 type t =
-  | X
-  | O;
+  | Circle
+  | Box;
 
 let color_of_player = (player: t) =>
   switch (player) {
-  | O => Theme.orange
-  | X => Theme.blue
+  | Box => Theme.orange
+  | Circle => Theme.blue
   };
 
 let playerDrawOffset = 0;
 let playerStrokeWeight = 5;
-let playerOffset = playerDrawOffset + (playerStrokeWeight / 2);
+let playerOffset = playerDrawOffset + playerStrokeWeight / 2;
 let playerStart = playerOffset;
 let playerEnd = Options.windowSize - playerOffset;
 
