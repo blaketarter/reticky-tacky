@@ -20,6 +20,7 @@ type t = {
 
 let draw = (~size: int, ~color: circleColor, ~xPos: int, ~yPos: int, env) => {
   Draw.fill(color |> color_of_boxColor, env);
+  Draw.strokeWeight(0, env);
   Draw.ellipse(
     ~center=(xPos + Options.tokenInset, yPos + Options.tokenInset),
     ~radx=size / 2,

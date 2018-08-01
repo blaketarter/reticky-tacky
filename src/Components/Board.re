@@ -124,6 +124,25 @@ let insertTokenAtCoord = (~coord: Coord.t, ~board: t, token: token) : t =>
   | ((_, None), b) => b
   };
 
+let isTokenAtColumn = (~column: Coord.c, ~row: row) : bool =>
+  switch (column, row) {
+  | (C1, (X | O, _, _))
+  | (C2, (_, X | O, _))
+  | (C3, (_, _, X | O)) => true
+  | (C1, (Empty, _, _))
+  | (C2, (_, Empty, _))
+  | (C3, (_, _, Empty))
+  | (None, _) => false
+  };
+
+let isTokenAtCoord = (~coord: Coord.t, ~board: t) : bool =>
+  switch (coord, board) {
+  | ((c, R1), Board(r, _, _)) => isTokenAtColumn(~column=c, ~row=r)
+  | ((c, R2), Board(_, r, _)) => isTokenAtColumn(~column=c, ~row=r)
+  | ((c, R3), Board(_, _, r)) => isTokenAtColumn(~column=c, ~row=r)
+  | ((_, None), _) => false
+  };
+
 let draw = (b: t, env) =>
   switch (b) {
   | Board(x, y, z) =>

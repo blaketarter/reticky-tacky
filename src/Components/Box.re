@@ -20,5 +20,6 @@ type t = {
 
 let draw = (~size: int, ~color: boxColor, ~xPos: int, ~yPos: int, env) => {
   Draw.fill(color |> color_of_boxColor, env);
+  Draw.strokeWeight(0, env);
   Draw.rect(~pos=(xPos, yPos), ~width=size, ~height=size, env);
 };
