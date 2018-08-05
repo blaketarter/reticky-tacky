@@ -18,8 +18,21 @@ type t = {
   pos: (int, int),
 };
 
-let draw = (~size: int, ~color: boxColor, ~xPos: int, ~yPos: int, env) => {
+let draw =
+    (
+      ~size: int,
+      ~color: boxColor,
+      ~xPos: int,
+      ~yPos: int,
+      ~text: option(string)=?,
+      env,
+    ) => {
   Draw.fill(color |> color_of_boxColor, env);
   Draw.strokeWeight(0, env);
+  let center = (xPos + Options.tokenInset, yPos + Options.tokenInset);
   Draw.rect(~pos=(xPos, yPos), ~width=size, ~height=size, env);
+  switch (text) {
+  | Some(body) => Helpers.centerText(~body, ~pos=center, ~font=None, env)
+  | None => ()
+  };
 };

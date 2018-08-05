@@ -22,6 +22,8 @@ let draw = (state: State.t, env) => {
 let handleMouseUp = (state: State.t, env) : State.t => {
   let (mx, my) = Env.mouse(env);
 
+  let hasDecRun = ref(false);
+
   let nextBoard = ref(state.board);
   let nextPlayer = ref(state.player);
   let nextView = ref(state.view);
@@ -37,15 +39,20 @@ let handleMouseUp = (state: State.t, env) : State.t => {
         && Helpers.isCoordInBounds(~lower=lowerY, ~upper=upperY, my)) {
       let coord = Coord.coord_of_xy(~x, ~y);
 
-      let token =
-        switch (state.player) {
-        | Player.Circle => Board.Circle
-        | Player.Box => Board.Box
+      if (! Board.isTokenAtCoord(~coord, ~board=nextBoard^)) {
+        if (! hasDecRun^) {
+          nextBoard := Board.decrementEach(nextBoard^);
+          hasDecRun := true;
         };
 
-      if (! Board.isTokenAtCoord(~coord, ~board=state.board)) {
+        let token =
+          switch (state.player) {
+          | Player.Circle => Token.Circle(Token.initialValue)
+          | Player.Box => Token.Box(Token.initialValue)
+          };
+
         nextBoard :=
-          Board.insertTokenAtCoord(~coord, ~board=state.board, token);
+          Board.insertTokenAtCoord(~coord, ~board=nextBoard^, token);
 
         if (Board.isBoardWon(nextBoard^)) {
           nextView := Views.GameWon(state.player);

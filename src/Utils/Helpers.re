@@ -18,14 +18,14 @@ let centerText = (~body, ~pos as (x, y), ~font, env) => {
   | None =>
     Reprocessing.Draw.text(
       ~body,
-      ~pos=(x - int_of_float(width) / 2, y),
+      ~pos=(x - int_of_float(width) / 2, y - 13),
       env,
     )
   | Some(innerFont) =>
     Reprocessing.Draw.text(
       ~font=innerFont,
       ~body,
-      ~pos=(x - int_of_float(width) / 2, y),
+      ~pos=(x - int_of_float(width) / 2, y - 13),
       env,
     )
   };
