@@ -31,8 +31,8 @@ let draw =
   Draw.strokeWeight(0, env);
   let center = (xPos + Options.tokenInset, yPos + Options.tokenInset);
   Draw.ellipse(~center, ~radx=size / 2, ~rady=size / 2, env);
-  switch (text) {
-  | Some(body) => Helpers.centerText(~body, ~pos=center, ~font=None, env)
-  | None => ()
-  };
+  /* switch (text) {
+     | Some(body) => Helpers.centerText(~body, ~pos=center, ~font=None, env)
+     | None => ()
+     }; */
 };

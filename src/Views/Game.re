@@ -16,6 +16,23 @@ let draw = (state: State.t, env) => {
   );
 
   Board.draw(state.board, env);
+
+  Grid.each((x, y) => {
+    let coord = Coord.coord_of_xy(~x, ~y);
+    let (x, y) = Token.getCoords(~xPos=x, ~yPos=y);
+    let player_token =
+      switch (state.player) {
+      | Player.Circle => Token.Circle(Token.initialValue)
+      | Player.Box => Token.Box(Token.initialValue)
+      };
+    let score = Ai.score_of_coord(~board=state.board, ~coord, player_token);
+    Helpers.centerText(
+      ~body=score |> string_of_int,
+      ~pos=(x + Options.tokenInset, y + Options.tokenInset),
+      ~font=None,
+      env,
+    );
+  });
   state;
 };
 
