@@ -11,6 +11,8 @@ type r =
 
 type t = (c, r);
 
+let empty: t = (None, None);
+
 let c_of_x = x : c =>
   switch (x) {
   | 0 => C1

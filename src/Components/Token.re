@@ -3,7 +3,7 @@ type t =
   | Circle(int)
   | Box(int);
 
-let initialValue = 5;
+let initialValue = 3;
 
 let getCoords = (~yPos: int, ~xPos: int) => (
   xPos

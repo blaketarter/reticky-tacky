@@ -9,3 +9,8 @@ let tokenInset = cellSize / 2 - tokenSize / 2;
 let rectMode = Reprocessing_Common.Corner;
 
 let fontColor = Reprocessing.Constants.white;
+
+let aiEnabled = true;
+let aiAutoPlay = true;
+let decrementEnabled = false;
+let debugAi = false;
