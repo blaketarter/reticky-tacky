@@ -22,3 +22,7 @@ To build to JS run `npm run build:web` and then run a static server, like `pytho
 To build to native run `npm run build:native` and run `npm run start:native`
 
 The build system used is [bsb-native](https://github.com/bsansouci/bsb-native).
+
+### Preview
+
+![preview](preview.png)
