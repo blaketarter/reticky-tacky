@@ -31,8 +31,11 @@ let draw =
   Draw.strokeWeight(0, env);
   let center = (xPos + Options.tokenInset, yPos + Options.tokenInset);
   Draw.rect(~pos=(xPos, yPos), ~width=size, ~height=size, env);
-  switch (text) {
-  | Some(body) => Helpers.centerText(~body, ~pos=center, ~font=None, env)
-  | None => ()
+
+  if (Options.decrementEnabled) {
+    switch (text) {
+    | Some(body) => Helpers.centerText(~body, ~pos=center, ~font=None, env)
+    | None => ()
+    };
   };
 };

@@ -4,3 +4,9 @@ let each = (cb: (int, int) => unit) : unit =>
       cb(x, y);
     };
   };
+
+let reduce = (cb: ('a, (int, int)) => 'a, initialData: 'a) : 'a => {
+  let nextData = ref(initialData);
+  each((x, y) => nextData := nextData^ |. cb((x, y)));
+  nextData^;
+};
